@@ -7,6 +7,7 @@ permissions:
   contents: write
 jobs:
   publish:
+    if: hashFiles('.bootstrap/part-*.bin') != ''
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -23,6 +24,10 @@ jobs:
           unzip -q /tmp/hal-source.zip -d /tmp/hal-extracted
           test -f /tmp/hal-extracted/jibo-hal-eye-theme/manifest.json
           cp -a /tmp/hal-extracted/jibo-hal-eye-theme/. .
+          # GitHub Actions GITHUB_TOKEN cannot push new workflow definitions.
+          # Restore ordinary source/assets first; add CI/release YAML through
+          # the authenticated GitHub connector after this bootstrap succeeds.
+          find .github/workflows -maxdepth 1 -type f ! -name 'bootstrap-hal.yml' -delete
           git restore --source=HEAD -- LICENSE
           rm -f Publish-HAL-Stable.ps1 Publish-HAL-Stable.cmd
           rm -rf .bootstrap
