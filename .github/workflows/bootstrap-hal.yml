@@ -40,7 +40,7 @@ jobs:
         run: |
           python scripts/build_release.py
           python scripts/validate_release.py
-          echo '33410bf5d16d39eea1f69cd54b2e4784b0ba3566200b8243f3dfd15b15332190  dist/jibo-hal-eye-theme.zip' | sha256sum --check
+          echo '569e91edbf543ad418551843afa86a96ef4d2a3553d9916cb82231cee506199e  dist/jibo-hal-eye-theme.zip' | sha256sum --check
       - name: Commit all source assets and remove temporary chunks
         shell: bash
         run: |
