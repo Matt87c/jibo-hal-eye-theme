@@ -7,7 +7,6 @@ permissions:
   contents: write
 jobs:
   publish:
-    if: hashFiles('.bootstrap/part-*.bin') != ''
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
